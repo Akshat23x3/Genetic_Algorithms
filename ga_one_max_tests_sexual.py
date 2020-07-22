@@ -1,3 +1,15 @@
+import random
+import datetime
+import numpy as np
+import unittest
+
+class Chromosome:
+
+	def __init__(self, genes, fitness):
+		self.genes = genes
+		self.fitness = fitness
+
+
 class OnemaxPopulation:
 	mutation_probability = 1.0
 
