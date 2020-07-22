@@ -28,7 +28,7 @@ class geneticonemax:
 	def get_fitness(self, chromosome_genes):
 		return sum(chromosome_genes)
 
-	def mutate(self, parent):
+	def mutate(self, parent): #Only Mutation (Flip-Bit)
 		child_genes = parent.genes[:]
 		index = random.randint(0, len(parent.genes) - 1)
 		child_genes[index] = 1 if child_genes[index] == 0 else 0
@@ -38,7 +38,7 @@ class geneticonemax:
 
 	def get_best_chromosome(self, target_fitness):
 		#random.seed()
-		step = 0
+		gen = 0
 		parent_chromosome = self.generate_parent(target_fitness)
 		starttime = datetime.datetime.now()
 		self.display(parent_chromosome, starttime,step)
@@ -46,10 +46,10 @@ class geneticonemax:
 			return parent_chromosome
 		
 		while True:
-			step += 1
+			gen += 1
 			child_chromosome = self.mutate(parent_chromosome)
 
-			if parent_chromosome.fitness >= child_chromosome.fitness:
+			if parent_chromosome.fitness >= child_chromosome.fitness: #If child Chromosome is not better than the generation is skipped
 				continue
 			self.display(child_chromosome, starttime,step)
 			if child_chromosome.fitness >= target_fitness:
@@ -59,7 +59,7 @@ class geneticonemax:
 
 	def display(self, chromosome, starttime, step):
 		timediff = datetime.datetime.now() - starttime
-		print(chromosome.genes[:15],'...',chromosome.genes[-15:],'  ',chromosome.fitness,'  ',timediff, step)
+		print(chromosome.genes[:15],'...',chromosome.genes[-15:],'  ',chromosome.fitness,'  ',timediff,"Gen : ",gen)
 
 
 genetic = geneticonemax()
